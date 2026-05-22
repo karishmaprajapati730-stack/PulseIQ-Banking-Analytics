@@ -1,20 +1,44 @@
-# Virtual Environment
-venv/
-
 # Python cache
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-# Notebook checkpoints
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Jupyter
 .ipynb_checkpoints/
 
-# VS Code settings
+# VS Code
 .vscode/
 
-# Model files
-*.pkl
+# Streamlit cache
+.streamlit/
+
+# Model checkpoints
+*.h5
+*.pt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large datasets (optional)
+data/raw/
+
+# Logs
+*.log
 
 # Temporary files
-*.tmp
+temp/
+tmp/
 
-# System files
-.DS_Store
+# Build files
+dist/
+build/
+
+# Environment variables
+.env
