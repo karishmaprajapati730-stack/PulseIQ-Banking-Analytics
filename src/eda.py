@@ -90,5 +90,53 @@ plt.title("Digital Engagement vs Churn")
 
 plt.show()
 
+plt.figure(figsize=(8,5))
+
+sns.boxplot(
+    x='churn',
+    y='avg_monthly_balance',
+    data=train
+)
+
+plt.title("Balance vs Churn")
+
+plt.show()
+
+plt.figure(figsize=(8,5))
+
+sns.boxplot(
+    x='churn',
+    y='total_complaints',
+    data=train
+)
+
+plt.title("Complaints vs Churn")
+
+plt.show()
+
+plt.figure(figsize=(8,5))
+
+sns.boxplot(
+    x='churn',
+    y='digital_engagement_index',
+    data=train
+)
+
+plt.title("Digital Engagement vs Churn")
+
+plt.show()
+
+correlation = train.corr(numeric_only=True)
+
+churn_corr = correlation['churn'].sort_values(
+    ascending=False
+)
+
+print("\nTop Correlation With Churn:")
+print(churn_corr.head(15))
+
+print("\nNegative Correlation:")
+print(churn_corr.tail(15))
+
 
 
