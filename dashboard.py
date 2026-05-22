@@ -14,6 +14,14 @@ st.set_page_config(
 )
 
 # =====================================================
+# LOAD REAL DATA
+# =====================================================
+
+train = pd.read_csv(
+    "data/processed/train_processed.csv"
+)
+
+# =====================================================
 # CUSTOM CSS
 # =====================================================
 
@@ -49,17 +57,12 @@ st.markdown("""
     color: #D1D5DB;
 }
 
+.section-title {
+    color: #93C5FD;
+}
+
 </style>
 """, unsafe_allow_html=True)
-
-# =====================================================
-# LOAD REAL DATA
-# =====================================================
-
-train = pd.read_csv(
-    "data/processed/train_processed.csv"
-)
-
 
 # =====================================================
 # HEADER
@@ -76,6 +79,30 @@ st.markdown(
 )
 
 st.write("")
+
+# =====================================================
+# SIDEBAR
+# =====================================================
+
+st.sidebar.title("🏦 BankPulse-AI")
+
+st.sidebar.markdown("""
+### Executive Analytics Dashboard
+
+Real-time banking churn intelligence system.
+""")
+
+st.sidebar.success("✅ Dashboard Status: Active")
+
+st.sidebar.write("---")
+
+st.sidebar.write("### Key Modules")
+
+st.sidebar.write("📊 KPI Analytics")
+st.sidebar.write("📈 Churn Trends")
+st.sidebar.write("⚠️ Risk Segmentation")
+st.sidebar.write("💰 Business Cost Analysis")
+st.sidebar.write("🎯 Retention Strategy")
 
 # =====================================================
 # KPI CARDS
@@ -97,6 +124,7 @@ estimated_loss = high_risk * 40000
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
+
     st.markdown(f"""
     <div class="metric-card">
         <h2>{total_customers}</h2>
@@ -105,6 +133,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
+
     st.markdown(f"""
     <div class="metric-card">
         <h2>{churn_rate}%</h2>
@@ -113,14 +142,16 @@ with col2:
     """, unsafe_allow_html=True)
 
 with col3:
+
     st.markdown(f"""
     <div class="metric-card">
         <h2>{high_risk}</h2>
-        <p>Churned Customers</p>
+        <p>High Risk Customers</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col4:
+
     st.markdown(f"""
     <div class="metric-card">
         <h2>₹{estimated_loss:,}</h2>
@@ -128,16 +159,24 @@ with col4:
     </div>
     """, unsafe_allow_html=True)
 
+st.write("")
+st.write("---")
+
 # =====================================================
-# CHURN TREND ANALYSIS
+# CHURN DISTRIBUTION
 # =====================================================
 
-st.subheader("📈 Churn Trend Analysis")
+st.subheader("📈 Customer Churn Distribution")
 
 churn_counts = train['churn'].value_counts()
 
 trend_data = pd.DataFrame({
-    "Status": ["Non-Churn", "Churn"],
+
+    "Status": [
+        "Non-Churn",
+        "Churn"
+    ],
+
     "Customers": churn_counts.values
 })
 
@@ -149,19 +188,16 @@ fig = px.bar(
     title="Customer Churn Distribution"
 )
 
-fig = px.line(
-    trend_data,
-    x="Month",
-    y="Churn Count",
-    markers=True,
-    title="Monthly Customer Churn Trend"
+st.plotly_chart(
+    fig,
+    use_container_width=True
 )
 
-st.plotly_chart(fig, use_container_width=True)
+# =====================================================
+# CUSTOMER SEGMENTATION
+# =====================================================
 
-# =====================================================
-# CUSTOMER RISK SEGMENTS
-# =====================================================
+st.subheader("⚠️ Customer Risk Segmentation")
 
 segment_data = pd.DataFrame({
 
@@ -173,7 +209,10 @@ segment_data = pd.DataFrame({
     ],
 
     "Customers": [
-        train[train['complaint_ratio'] > 0.5].shape[0],
+
+        train[
+            train['complaint_ratio'] > 0.5
+        ].shape[0],
 
         train[
             train['digital_engagement_combined'] < 50
@@ -189,7 +228,75 @@ segment_data = pd.DataFrame({
     ]
 })
 
+fig2 = px.pie(
+    segment_data,
+    names="Segment",
+    values="Customers",
+    hole=0.5,
+    title="Customer Risk Segments"
+)
 
+st.plotly_chart(
+    fig2,
+    use_container_width=True
+)
+
+# =====================================================
+# AGE ANALYSIS
+# =====================================================
+
+st.subheader("👥 Age Distribution by Churn")
+
+fig3 = px.box(
+    train,
+    x='churn',
+    y='age',
+    color='churn',
+    title="Customer Age vs Churn"
+)
+
+st.plotly_chart(
+    fig3,
+    use_container_width=True
+)
+
+# =====================================================
+# COMPLAINT ANALYSIS
+# =====================================================
+
+st.subheader("📞 Complaints vs Churn")
+
+fig4 = px.box(
+    train,
+    x='churn',
+    y='total_complaints',
+    color='churn',
+    title="Customer Complaints Analysis"
+)
+
+st.plotly_chart(
+    fig4,
+    use_container_width=True
+)
+
+# =====================================================
+# DIGITAL ENGAGEMENT ANALYSIS
+# =====================================================
+
+st.subheader("📱 Digital Engagement Analysis")
+
+fig5 = px.box(
+    train,
+    x='churn',
+    y='digital_engagement_combined',
+    color='churn',
+    title="Digital Engagement vs Churn"
+)
+
+st.plotly_chart(
+    fig5,
+    use_container_width=True
+)
 
 # =====================================================
 # BUSINESS COST ANALYSIS
@@ -198,24 +305,30 @@ segment_data = pd.DataFrame({
 st.subheader("💰 Business Cost Impact")
 
 cost_data = pd.DataFrame({
+
     "Category": [
         "False Negatives",
         "False Positives"
     ],
+
     "Cost": [
         4000000,
         50000
     ]
 })
 
-fig3 = px.bar(
+fig6 = px.bar(
     cost_data,
     x="Category",
     y="Cost",
-    title="Business Loss Analysis"
+    color="Category",
+    title="Estimated Business Loss"
 )
 
-st.plotly_chart(fig3, use_container_width=True)
+st.plotly_chart(
+    fig6,
+    use_container_width=True
+)
 
 # =====================================================
 # RETENTION STRATEGY
@@ -225,16 +338,16 @@ st.subheader("🎯 AI Retention Recommendations")
 
 strategy_data = pd.DataFrame({
 
-    "Segment": [
+    "Customer Segment": [
         "High Complaint Risk",
         "Digitally Disengaged",
         "Low Product Usage"
     ],
 
-    "Recommendation": [
-        "Priority customer support",
-        "Mobile onboarding campaign",
-        "Cross-sell premium products"
+    "AI Recommendation": [
+        "Provide priority support and relationship manager.",
+        "Launch mobile onboarding & engagement campaigns.",
+        "Cross-sell banking products and loyalty rewards."
     ]
 })
 
@@ -242,6 +355,22 @@ st.dataframe(
     strategy_data,
     use_container_width=True
 )
+
+# =====================================================
+# BUSINESS INSIGHTS
+# =====================================================
+
+st.subheader("🧠 Executive Business Insights")
+
+st.info("""
+• Customers with high complaints demonstrate elevated churn probability.
+
+• Digitally disengaged customers are more likely to leave the bank.
+
+• Lower product utilization strongly correlates with churn behavior.
+
+• AI-driven retention campaigns can significantly reduce business loss.
+""")
 
 # =====================================================
 # FOOTER
