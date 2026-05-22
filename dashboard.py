@@ -53,6 +53,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =====================================================
+# LOAD REAL DATA
+# =====================================================
+
+train = pd.read_csv(
+    "data/processed/train_processed.csv"
+)
+
+
+# =====================================================
 # HEADER
 # =====================================================
 
@@ -72,43 +81,52 @@ st.write("")
 # KPI CARDS
 # =====================================================
 
+total_customers = len(train)
+
+churn_rate = round(
+    train['churn'].mean() * 100,
+    2
+)
+
+high_risk = train[
+    train['churn'] == 1
+].shape[0]
+
+estimated_loss = high_risk * 40000
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.markdown("""
+    st.markdown(f"""
     <div class="metric-card">
-        <h2>92%</h2>
-        <p>Model Accuracy</p>
+        <h2>{total_customers}</h2>
+        <p>Total Customers</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
-    st.markdown("""
+    st.markdown(f"""
     <div class="metric-card">
-        <h2>0.89</h2>
-        <p>Recall Score</p>
+        <h2>{churn_rate}%</h2>
+        <p>Churn Rate</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col3:
-    st.markdown("""
+    st.markdown(f"""
     <div class="metric-card">
-        <h2>₹4.2M</h2>
-        <p>Potential Savings</p>
+        <h2>{high_risk}</h2>
+        <p>Churned Customers</p>
     </div>
     """, unsafe_allow_html=True)
 
 with col4:
-    st.markdown("""
+    st.markdown(f"""
     <div class="metric-card">
-        <h2>1,423</h2>
-        <p>High Risk Customers</p>
+        <h2>₹{estimated_loss:,}</h2>
+        <p>Potential Revenue Loss</p>
     </div>
-    """, unsafe_allow_html=True
-)
-
-st.write("")
-st.write("---")
+    """, unsafe_allow_html=True)
 
 # =====================================================
 # CHURN TREND ANALYSIS
@@ -116,10 +134,20 @@ st.write("---")
 
 st.subheader("📈 Churn Trend Analysis")
 
+churn_counts = train['churn'].value_counts()
+
 trend_data = pd.DataFrame({
-    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    "Churn Count": [120, 140, 170, 160, 190, 175]
+    "Status": ["Non-Churn", "Churn"],
+    "Customers": churn_counts.values
 })
+
+fig = px.bar(
+    trend_data,
+    x="Status",
+    y="Customers",
+    color="Status",
+    title="Customer Churn Distribution"
+)
 
 fig = px.line(
     trend_data,
@@ -135,27 +163,33 @@ st.plotly_chart(fig, use_container_width=True)
 # CUSTOMER RISK SEGMENTS
 # =====================================================
 
-st.subheader("⚠️ Customer Risk Segmentation")
-
 segment_data = pd.DataFrame({
+
     "Segment": [
         "High Complaint Risk",
         "Digitally Disengaged",
         "Low Product Usage",
         "Stable Customers"
     ],
-    "Customers": [420, 350, 290, 6940]
+
+    "Customers": [
+        train[train['complaint_ratio'] > 0.5].shape[0],
+
+        train[
+            train['digital_engagement_combined'] < 50
+        ].shape[0],
+
+        train[
+            train['number_of_products'] <= 2
+        ].shape[0],
+
+        train[
+            train['churn'] == 0
+        ].shape[0]
+    ]
 })
 
-fig2 = px.pie(
-    segment_data,
-    names="Segment",
-    values="Customers",
-    hole=0.5,
-    title="Customer Segmentation"
-)
 
-st.plotly_chart(fig2, use_container_width=True)
 
 # =====================================================
 # BUSINESS COST ANALYSIS
