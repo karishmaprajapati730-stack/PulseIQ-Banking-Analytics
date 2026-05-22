@@ -36,3 +36,20 @@ print(train.duplicated().sum())
 # Statistical Summary
 print("\nStatistical Summary:")
 print(train.describe())
+
+print("\nColumn Names:")
+print(train.columns.tolist())
+
+print("\nUnique Values Per Column:")
+print(train.nunique().sort_values())
+
+categorical_cols = train.select_dtypes(include='object').columns
+
+print("\nCategorical Columns:")
+print(categorical_cols)
+
+numerical_cols = train.select_dtypes(exclude='object').columns
+
+print("\nNumerical Columns:")
+print(numerical_cols)
+
