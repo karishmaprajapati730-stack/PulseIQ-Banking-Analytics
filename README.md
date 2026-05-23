@@ -6,6 +6,24 @@ BankPulse-AI is an AI-powered customer churn analytics system designed for banki
 The platform combines Machine Learning, Business Intelligence, Explainable AI, and Executive Analytics Dashboards to identify high-risk customers and optimize customer retention strategies.
 
 ---
+# 📸 Dashboard Preview
+
+## Executive Banking Dashboard
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+## KPI Analytics
+
+![KPI](assets/kpi.png)
+
+---
+
+## Customer Churn Insights
+
+![Charts](assets/charts.png)
+
 
 # 🚀 Project Highlights
 
@@ -201,11 +219,6 @@ streamlit run dashboard.py
 - Live Banking Data Streams
 - Customer Lifetime Value Prediction
 
-## Dashboard Preview
-
-![Dashboard](assets/dashboard.png)
-
----
 
 # 👩‍💻 Author
 
