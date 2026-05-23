@@ -201,6 +201,10 @@ streamlit run dashboard.py
 - Live Banking Data Streams
 - Customer Lifetime Value Prediction
 
+## Dashboard Preview
+
+![Dashboard](assets/dashboard.png)
+
 ---
 
 # 👩‍💻 Author
