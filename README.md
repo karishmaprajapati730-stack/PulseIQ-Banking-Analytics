@@ -6,13 +6,7 @@ BankPulse-AI is an AI-powered customer churn analytics system designed for banki
 The platform combines Machine Learning, Business Intelligence, Explainable AI, and Executive Analytics Dashboards to identify high-risk customers and optimize customer retention strategies.
 
 ---
-# 📸 Dashboard Preview
-
-## Executive Banking Dashboard
-
-![Dashboard](assets/dashboard.png)
-
----
+## 📸 Dashboard Preview
 
 ## KPI Analytics
 
@@ -20,9 +14,81 @@ The platform combines Machine Learning, Business Intelligence, Explainable AI, a
 
 ---
 
-## Customer Churn Insights
+## Dashboard 1
 
-![Charts](assets/charts.png)
+![Dashboard1](assets/dashboard1.png)
+
+---
+
+## Dashboard 2
+
+![Dashboard2](assets/dashboard2.png)
+
+---
+
+## Dashboard 3
+
+![Dashboard3](assets/dashboard3.png)
+
+---
+
+## Dashboard 4
+
+![Dashboard4](assets/dashboard4.png)
+
+---
+
+## Dashboard 5
+
+![Dashboard5](assets/dashboard5.png)
+
+---
+
+## Dashboard 6
+
+![Dashboard6](assets/dashboard6.png)
+
+---
+
+## Chart 1
+
+![Chart1](assets/chart1.png)
+
+---
+
+## Chart 2
+
+![Chart2](assets/chart2.png)
+
+---
+
+## Chart 3
+
+![Chart3](assets/chart3.png)
+
+---
+
+## Chart 4
+
+![Chart4](assets/chart4.png)
+
+---
+
+## Chart 5
+
+![Chart5](assets/chart5.png)
+
+---
+
+## Chart 6
+
+![Chart6](assets/chart6.png)
+
+---
+
+## Chart 7
+
+![Chart7](assets/chart7.png)
 
 
 # 🚀 Project Highlights
