@@ -1,8 +1,8 @@
-# 🏦 BankPulse-AI
+# 🏦 PulseIQ-Banking-Analytics
 
 ## Enterprise Banking Retention Intelligence Platform
 
-BankPulse-AI is an AI-powered customer churn analytics system designed for banking institutions.  
+PulseIQ-Banking-Analytics is an AI-powered customer churn analytics system designed for banking institutions.  
 The platform combines Machine Learning, Business Intelligence, Explainable AI, and Executive Analytics Dashboards to identify high-risk customers and optimize customer retention strategies.
 
 ---
