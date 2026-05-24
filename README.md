@@ -200,8 +200,6 @@ BankPulse-AI/
 ├── outputs/
 │   └── reports/
 │
-├── presentation/
-│
 ├── src/
 │   ├── eda.py
 │   ├── feature_engineering.py
